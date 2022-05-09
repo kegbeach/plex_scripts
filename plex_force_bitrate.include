@@ -1,0 +1,15 @@
+# Android force original bitrate
+if ($http_user_agent ~ (^|.*)Android(.*)) { set $tempargs ${args}-ANDROID; }
+if ($tempargs ~ (^|.*)&directStream=0(.*)-ANDROID) { set $tempargs $1&directStream=1$2-ANDROID; }
+if ($tempargs ~ (^|.*)&maxVideoBitrate=(\d+)(.*)-ANDROID) { set $tempargs $1$3-ANDROID; }
+if ($tempargs ~ (^|.*)&videoBitrate=(\d+)(.*)-ANDROID) { set $tempargs $1$3-ANDROID; }
+if ($tempargs ~ (^|.*)&videoQuality=(\d+)(.*)-ANDROID) { set $tempargs $1$3-ANDROID; }
+if ($tempargs ~ (^|.*)-ANDROID) { set $args $1; }
+
+# Roku force original bitrate
+if ($http_user_agent ~ (^|.*)Roku(.*)) { set $tempargs ${args}-ROKU; }
+if ($tempargs ~ (^|.*)&videoQuality=(\d+)(.*)-ROKU) { set $tempargs $1$3-ROKU; }
+if ($tempargs ~ (^|.*)&maxVideoBitrate=(\d+)(.*)-ROKU) { set $tempargs $1$3-ROKU; }
+if ($tempargs ~ (^|.*)&videoResolution=(\d+)x(\d+)(.*)-ROKU) { set $tempargs $1$4-ROKU; }
+if ($tempargs ~ (^|.*)&directStream=0(.*)-ROKU) { set $tempargs $1&directStream=1$2-ROKU; }
+if ($tempargs ~ (^|.*)-ROKU) { set $args $1; }
